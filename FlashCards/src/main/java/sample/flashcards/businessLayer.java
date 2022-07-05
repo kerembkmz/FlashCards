@@ -3,27 +3,84 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.IOException;
+import java.sql.*;
 
 public class businessLayer {
 
     @FXML
     private Label textLabel;
 
+    @FXML
+    private Label numCursor;
+    // Final deck count should be initilazed before usage
+    final Integer deckCount = 8;
+
     private boolean side = true;
 
     private Integer qnumber = 1;
 
+    public void nextButtonFunction() {
+        databaseCon connectNow = new databaseCon();
+        Connection connectDB = connectNow.getconnection();
+        try{
 
-    public void flipButtonFunction() {
+            Statement stmt = connectDB.createStatement();
+            String numQuery = "select count(*) from FlashCards.Cards";
+            ResultSet rs = stmt.executeQuery(numQuery);
+            rs.next();
+            int totalNum = rs.getInt(1);
+            if (qnumber < totalNum){
+                qnumber += 1;
+            }else if(qnumber == totalNum){
+                qnumber += 0;
+            }
+            numCursor.setText(qnumber + "/" + totalNum);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        flipButtonFunction();}
+
+    public void prevButtonFunction() throws SQLException {
+
 
         databaseCon connectNow = new databaseCon();
         Connection connectDB = connectNow.getconnection();
+        try{
+            if (qnumber > 1){
+                qnumber -= 1;
+            }else if(qnumber == 1){
+                qnumber += 0;
+            }
 
-        String connectFrontQuery = "SELECT Front FROM FlashCards.Cards WHERE CardID = " + qnumber.toString();
-        String connectBackQuery = "SELECT Back FROM FlashCards.Cards WHERE CardID = " + qnumber.toString();
+            Statement stmt = connectDB.createStatement();
+            String numQuery = "select count(*) from FlashCards.Cards";
+            ResultSet rs = stmt.executeQuery(numQuery);
+            rs.next();
+            int totalNum = rs.getInt(1);
+            numCursor.setText(qnumber + "/" + totalNum);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        flipButtonFunction();
+
+
+
+    }
+
+
+
+
+
+    public void flipButtonFunction() {
+        databaseCon connectNow = new databaseCon();
+        Connection connectDB = connectNow.getconnection();
+        String connectFrontQuery = "SELECT Front FROM FlashCards.Cards WHERE CardID = " + qnumber;
+        String connectBackQuery = "SELECT Back FROM FlashCards.Cards WHERE CardID = " + qnumber;
+
+
         if (side==true){
             try{
                 Statement statement = connectDB.createStatement();
@@ -37,7 +94,7 @@ public class businessLayer {
                 e.printStackTrace();
             }
             side = false;
-        }else if(side==false){
+        }else {
             try{
                 Statement statement = connectDB.createStatement();
                 ResultSet BackqueryOutput = statement.executeQuery(connectBackQuery);
@@ -50,22 +107,13 @@ public class businessLayer {
             }
             side = true;
         }
-
-
-
-
-
-
-        System.out.print("hello");
     }
 
-    public void nextButtonFunction() {
-        qnumber += 1;
-        System.out.println(qnumber);
-    }
 
-    public void prevButtonFunction() {
-        qnumber -= 1;
-        System.out.println(qnumber);
+    public void addCardFunction(ActionEvent event) throws IOException {
+        HelloApplication m = new HelloApplication();
+        m.changeScene("addCardPage.fxml");
+
+
     }
 }

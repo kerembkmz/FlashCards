@@ -27,5 +27,11 @@
         <Button fx:id="prevButton" alignment="CENTER" mnemonicParsing="false" onAction="#prevButtonFunction" text="Prev" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <Button fx:id="flipButton" alignment="CENTER" mnemonicParsing="false" onAction="#flipButtonFunction" text="Flip" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
         <Button fx:id="nextButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#nextButtonFunction" text="Next" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Label fx:id="numCursor" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCardFunction" text="Add a card" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BASELINE">
+         <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </GridPane.margin>
+      </Button>
     </children>
 </GridPane>
