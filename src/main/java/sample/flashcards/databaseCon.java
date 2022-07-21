@@ -19,7 +19,7 @@ public class databaseCon {
         }catch (Exception e){
             e.printStackTrace();
         }
-gi
+
         return databaselink;
     }
 

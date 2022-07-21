@@ -25,7 +25,7 @@ public class businessLayer {
     //There are problems with the turns of the cards
     //Should see the first card when I enter the program but I don't see one, should fix it
     //Also problems while skipping the cards, may be because of the declaration problem, will check
-    private boolean side = true;
+    private boolean side;
 
     //Declares a start position for the Card
     private Integer qNumber = 1;
@@ -52,7 +52,7 @@ public class businessLayer {
             e.printStackTrace();
         }
 
-        flipButtonFunction();
+        showCard();
     }
 
     public void prevButtonFunction() throws SQLException, IOException {
@@ -75,16 +75,17 @@ public class businessLayer {
             e.printStackTrace();
         }
 
-        flipButtonFunction();
+        showCard();
     }
 
-    public void flipButtonFunction() {
+    //to solve the problem of the flipping cards while changing cards a new method callled showCard
+    public void showCard(){
         databaseCon connectNow = new databaseCon();
         Connection connectDB = connectNow.getconnection();
         String connectFrontQuery = "SELECT Front FROM FlashCards.Cards WHERE CardID = " + qNumber;
         String connectBackQuery = "SELECT Back FROM FlashCards.Cards WHERE CardID = " + qNumber;
-
-        if (side==true){
+        System.out.println(side);
+        if (side ==true){
             try{
                 Statement statement = connectDB.createStatement();
                 ResultSet FrontqueryOutput = statement.executeQuery(connectFrontQuery);
@@ -92,12 +93,10 @@ public class businessLayer {
                 while(FrontqueryOutput.next()){
                     textLabel.setText(FrontqueryOutput.getString("Front"));
                 }
-
             }catch(Exception e){
                 e.printStackTrace();
             }
-            side = false;
-        }else {
+        }else if(side == false) {
             try{
                 Statement statement = connectDB.createStatement();
                 ResultSet BackqueryOutput = statement.executeQuery(connectBackQuery);
@@ -108,7 +107,25 @@ public class businessLayer {
             }catch(Exception e){
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    public void flipButtonFunction() {
+        databaseCon connectNow = new databaseCon();
+        Connection connectDB = connectNow.getconnection();
+        String connectFrontQuery = "SELECT Front FROM FlashCards.Cards WHERE CardID = " + qNumber;
+        String connectBackQuery = "SELECT Back FROM FlashCards.Cards WHERE CardID = " + qNumber;
+
+        if (side ==true){
+            side = false;
+            showCard();
+
+        }else if(side == false) {
             side = true;
+            showCard();
+
+
         }
     }
 

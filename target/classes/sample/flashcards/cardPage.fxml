@@ -21,12 +21,12 @@
         <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label fx:id="textLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="184.0" prefWidth="514.0" style="-fx-background-color: #fedc97#fedc97; -fx-text-fill: #293241 #293241; -fx-border-color: white; -fx-border-width: 2px;" text="Text Will be shown here" textFill="#2e2765" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+        <Label fx:id="textLabel" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" prefHeight="189.0" prefWidth="305.0" style="-fx-background-color: #fedc97#fedc97; -fx-text-fill: #293241 #293241; -fx-border-color: white; -fx-border-width: 2px;" text="Text Will be shown here" textFill="#2e2765" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets />
             </GridPane.margin>
          <font>
-            <Font name="Apple Braille" size="14.0" />
+            <Font name="AppleMyungjo Regular" size="14.0" />
          </font>
         </Label>
         <Button fx:id="prevButton" alignment="CENTER" mnemonicParsing="false" onAction="#prevButtonFunction" style="-fx-background-color: #FC766AFF #FC766AFF #FC766AFF #FC766AFF; -fx-text-fill: white; -fx-border-color: white; -fx-border-width: 1px;" text="Prev" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
